@@ -1,29 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name = "author" content = "Toya Okey-Nwamara">
-    <link rel="stylesheet" href = "styles.css">
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <meta name="author" content="Toya Okey-Nwamara" >
+    <link rel="icon" href="images/favicon.ico" >
+    <link rel="stylesheet" href="styles.css" >
+
     <title>Black Ice Tips</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>Black Ice Tips</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href ="items.html">Services</a></li>
-                <li><a href="sell.html">Sell</a></li>
-            </ul>
-        </nav>
+      <!-- <h1>Black Ice Tips</h1> -->
+      <div class="img-container">
+        <a href="index.html"> 
+          <img src="images/Logo.svg" alt="Black Ice Tips Logo" id="logo"></a>
+      </div>
+
+      <div class="input-box">
+        <input type="text" placeholder="search" >
+        <div class="search-container">
+          <a href="#"><img src="images/search-icon.svg" alt="Search bar icon" id="search-icon" width="25" ></a>
+      </div>
+      
+      </div>
+      <nav>
+        <ul>
+          <li><a href="items.html">Browse</a></li>
+          <li><a href="new.html">Sell</a></li>
+          <li id="login"><a href="#">Login</a></li>
+          <li id="signup"><a href="#">Sign Up</a></li>
+        </ul>
+      </nav>
     </header>
     <main>
+      <!-- Items Section -->
 
+      <div class="wrapper">
+        <a href="item.html">
+          <div class="single-card">
+            <div class="img-area">
+              <img src="images/coaching.svg" alt="coaching guide" >
+            </div>
+            <div class="info">
+              <h3>Coaching</h3>
+              <p class="price">$30 Per Session</p>
+              <p class="quality">Beginner</p>
+              <p class="offers">5 Offers</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="item.html">
+          <div class="single-card">
+            <div class="img-area">
+              <img src="images/game-sense-guide.svg" alt="game sense guide" >
+            </div>
+            <div class="info">
+              <h3>Game Sense Guide</h3>
+              <p class="price">$9.99</p>
+              <p class="quality">Intermediate</p>
+              <p class="offers">3 Offers</p>
+            </div>
+          </div>
+        </a>
+        <a href="item.html">
+          <div class="single-card">
+            <div class="img-area">
+              <img src="images/map-guide.svg" alt="map sense guide" >
+            </div>
+            <div class="info">
+              <h3>The Ultimate Map Guide</h3>
+              <p class="price">$9.99</p>
+              <p class="quality">Expert</p>
+              <p class="offers">4 Offers</p>
+            </div>
+          </div>
+        </a>
+        <a href="item.html">
+          <div class="single-card">
+            <div class="img-area">
+              <img src="images/loadout-kit.svg" alt="the loadout kit" >
+            </div>
+            <div class="info">
+              <h3>The Ultimate Loadout Kit</h3>
+              <p class="price">$4.99</p>
+              <p class="quality">Advanced</p>
+              <p class="offers">3 Offers</p>
+            </div>
+          </div>
+        </a>
+        <a href="item.html">
+          <div class="single-card">
+            <div class="img-area">
+              <img src="images/aim-guide.svg" alt="map sense guide" >
+            </div>
+            <div class="info">
+              <h3>The Ultimate Aim Guide</h3>
+              <p class="price">$5.99</p>
+              <p class="quality">Advanced</p>
+              <p class="offers">4 Offers</p>
+            </div>
+          </div>
+        </a>
+        <a href="item.html">
+          <div class="single-card">
+            <div class="img-area">
+              <img src="images/ultimate-document.svg" alt="map sense guide" >
+            </div>
+            <div class="info">
+              <h3>The Ultimate Siege Document</h3>
+              <p class="price">$10.99</p>
+              <p class="quality">Expert</p>
+              <p class="offers">11 Offers</p>
+            </div>
+          </div>
+        </a>
+      </div>
     </main>
     <footer>
-        ©2024  CyberGuard. All rights reserved.
+      <p>©2024 Black Ice Tips. All rights reserved.</p>
+      <div class="social-icons">
+        <a href="https://x.com/ToyaOkey" target="_blank">
+            <img src="images/twitter-icon.svg" alt="Twitter" height="50" width="50">
+        </a>
+        <a href="https://www.youtube.com/@TooLazyToya" target="_blank">
+            <img src="images/youtube-icon.svg" alt="YouTube" height="50" width="50">
+        </a>
+        <a href="https://github.com/ToyaOkey" target="_blank">
+            <img src="images/github-icon.svg" alt="GitHub" height="50" width="50">
+        </a>
+        <a href="https://www.linkedin.com/in/toyaokey/" target="_blank">
+            <img src="images/linkedin-logo.svg" alt="LinkedIn" height="40" width="40"></a>
+      </div>
     </footer>
     <script src="index.js"></script>
-</body>
+  </body>
 </html>

@@ -7,7 +7,6 @@
     <link rel="icon" href="images/favicon.ico">
     <link rel="stylesheet" href = "styles.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins" >
-
     <title>Black Ice Tips</title>
 </head>
 <body>
@@ -18,15 +17,13 @@
         </div>
         
         <div class="input-box">
-
             <input type="text" placeholder="search">
+
             <div class="search-container">
                 <a href="#"><img src="images/search-icon.svg" alt="Search bar icon" id="search-icon" width="25" ></a>
             </div>
             
-            
         </div>
-        
         <nav>
 
             <ul>
@@ -38,45 +35,51 @@
         </nav>
     </header>
     <main>
-        <p class="intro">Black Ice Tips is the best Rainbow Six Siege Marketplace for all skill levels. Navigate to browsing educational options
-            or selling your own tips.
-        </p>
-        <ul class="accordion">
-            <li>
-                <label for="first">Why Us? <span>&#x3e;</span></label>
-                <input type="radio" name = "accordion" id="first" checked>
-                <div class="content">
-                    <p>I am a Diamond Rainbow Six Siege player dedicated to the growth within the community. 
-                        After examing the resources for players I decided to found a website to where we only sell the
-                        highest of quality tips. We also allow the individual to sell their own tips to the community that helped
-                        them rank up. 
-                    </p>
-                </div>
-            </li>
-            <li>
-                <label for="second">How Do I get Started? <span>&#x3e;</span></label>
-                <input type="radio" name = "accordion" id="second">
-                <div class="content">
-                    <p>
-                        To get started you can browse our website for tips that you can purchase. 
-                        See what categories we have and what tips are available, we additionally allow one-on-one coaching
-                        for players that request that product. 
-                    </p>
-                </div>
-            </li>
-            <li>
-                <label for="third">Where Do I Sell?<span>&#x3e;</span></label>
-                <input type="radio" name = "accordion" id="third">
-                <div class="content">
-                    <p>
-                        To sell your tips you can go to the sell page and fill out the form. 
-                        We will review your tips and if they are of  quality, after taking careful review we will notify you of your status. 
-                        You will be paid a percentage of the sale of your tips.
-                    </p>
-                </div>
-            </li>
-        </ul>
+       <div class="form-container">
+        <h1>Sell Form</h1>
+        <p>Fill out this form in order to sell a product. This will be reviewed by an expert.</p>
        
+       <form action="#">
+            <div class="row">
+                <div class="column">
+                    <label for="condition-dropdown">Condition</label>
+                    <select name="condition-dropdown" id="condition-dropdown" required>
+                        <option value="" disabled selected>Select a Condition</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                        <option value="expert">Expert</option>
+                    </select>
+                </div>
+                <div class="column">
+                    <label for="price">Price</label>
+                    <input type="number" id="price" name="price" placeholder="Enter price" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label for="title">Title</label> 
+                    <input type="text" id="title" name="title" placeholder="Enter product name" required>   
+                </div>
+                <div class="column">
+                    <label for="seller">Seller</label> 
+                    <input type="text" id="seller" name="seller" placeholder="Enter seller name" required>   
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label for="Details">Details</label>
+                    <textarea name="Details" id="Details" cols="40" rows="5" placeholder="Enter description" required></textarea>
+                </div>
+                <div class="column">
+                    <label for="file-upload" class = "file-upload">Image</label>
+                    <input type="file" id="file-upload" name="image" accept="image/*" required>
+                </div>
+
+            </div>
+            <button>Submit</button>
+       </form>
+    </div>
     </main>
     <footer>
         <p>©2024  Black Ice Tips. All rights reserved.</p>
@@ -88,6 +91,5 @@
         </div>
     </footer>
     <script src="index.js"></script>
-
 </body>
 </html>
