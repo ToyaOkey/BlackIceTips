@@ -1,41 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-    <meta name="author" content="Toya Okey-Nwamara" >
-    <link rel="icon" href="images/favicon.ico" >
-    <link rel="stylesheet" href="styles.css" >
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
-    <title>Black Ice Tips</title>
-  </head>
-  <body>
-    <header>
-      <!-- <h1>Black Ice Tips</h1> -->
-      <div class="img-container">
-        <a href="index.html"> 
-          <img src="images/Logo.svg" alt="Black Ice Tips Logo" id="logo"></a>
-      </div>
-
-      <div class="input-box">
-        <input type="text" placeholder="search" >
-        <div class="search-container">
-          <a href="#"><img src="images/search-icon.svg" alt="Search bar icon" id="search-icon" width="25" ></a>
-      </div>
-      
-      </div>
-      <nav>
-        <ul>
-          <li><a href="items.html">Browse</a></li>
-          <li><a href="new.html">Sell</a></li>
-          <li id="login"><a href="#">Login</a></li>
-          <li id="signup"><a href="#">Sign Up</a></li>
-        </ul>
-      </nav>
-    </header>
+<%- include('../partials/header.ejs')%>  
     <main>
       <!-- Items Section -->
 
@@ -121,15 +84,4 @@
         </a>
       </div>
     </main>
-    <footer>
-        <p>©2024  Black Ice Tips. All rights reserved.</p>
-        <div class="social-icons">
-            <a href="https://x.com/ToyaOkey" target="_blank"><img src="images/twitter-icon.svg" alt="Twitter" height="50" width = "50"></a>
-            <a href="https://www.youtube.com/@TooLazyToya" target="_blank"><img src="images/youtube-icon.svg" alt="YouTube" height="50" width = "50"></a>
-            <a href="https://github.com/ToyaOkey" target="_blank"><img src="images/github-icon.svg" alt="GitHub" height="50" width = "50"></a>
-            <a href="https://www.linkedin.com/in/toyaokey/" target="_blank"><img src="images/linkedin-logo.svg" alt="LinkedIn" height="40" width = "40"></a>
-        </div>
-    </footer>
-    <script src="index.js"></script>
-  </body>
-</html>
+<%- include('../partials/footer.ejs')%>  

@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 
 // middleware
 
-app.use(expres.static('public')); 
+app.use(express.static('public')); 
 app.use(express.urlencoded({extended: true})); 
 app.use(morgan('tiny')); 
 app.use(methodOverride('_method')) 
@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 }); 
 
 // uses blackice for routing 
-app.use('/blackIce', blackIceRoutes); 
+app.use('/blackiceservices', blackIceRoutes); 
 
 app.use((req, res, next) => {
     let err = new Error(`The page ${req.url} does not exist`);
@@ -47,5 +47,5 @@ app.use((err, req, res, next) => {
 // server setip 
 
 app.listen(port, host, () => {
-    console.log(`Black ice is running on http://${host}:${port}`);
+    console.log(`Black Ice Tips is running on http://${host}:${port}`);
 }); 
