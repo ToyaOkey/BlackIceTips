@@ -66,7 +66,7 @@ const services = [
         condition: 'Expert', 
         price: '10.99', 
         details: 'Top secret document to instantly go from copper to champion.',
-        image: '../images/ultimate-siege-document.svg', 
+        image: '../images/ultimate-document.svg', 
         active: 'true', 
         offers: '11',
     }
@@ -76,13 +76,14 @@ exports.find = () => services;
 
 exports.findById = (id) => services.find(service => service.id === id);
 
-exports.save = (story) => {
-    story.id = uuidv4();
-    services.push(story);
+exports.save = (service) => {
+    service.id = uuidv4();
+    services.push(service);
 };
 
 exports.updateById = (id, newService) => {
     let service = services.find(service => service.id === id); 
+
     if(service !== undefined){
         service.title = newService.title; 
         service.seller = newService.seller; 
@@ -92,7 +93,10 @@ exports.updateById = (id, newService) => {
         service.image = newService.image; 
         service.active = newService.active; 
         service.offers = newService.offers; 
+        // console.log(service); 
+        return true; 
     }
+    return false; 
 }; 
 
 exports.deleteById = (id) => {

@@ -1,6 +1,8 @@
 const express = require('express'); 
 const controller = require('../controllers/blackIceController');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer({dest: '../public/images'}).single('image'); 
 
 
 // GET /blackiceservices :show all services offered
@@ -12,6 +14,7 @@ router.get('/new', controller.new);
 // POST /blackiceservices create a new service 
 
 router.post('/', controller.create);
+// router.post('/', controller.create, upload);
 
 // GET /blackiceservices/:id : show details of a single service
 router.get('/:id', controller.show); 

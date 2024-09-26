@@ -4,7 +4,7 @@ const express = require('express');
 const morgan = require('morgan'); 
 const blackIceRoutes = require('./routes/blackIceRoutes');
 const methodOverride = require('method-override');
-
+// const multer = require('multer');
 const app = express(); 
 
 // app setup 
@@ -15,12 +15,12 @@ app.set('view engine', 'ejs');
 
 // middleware
 
+
 app.use(express.static('public')); 
 app.use(express.urlencoded({extended: true})); 
 app.use(morgan('tiny')); 
 app.use(methodOverride('_method')) 
 
-// routing 
 
 app.get('/', (req, res) => {
     res.render('index'); 

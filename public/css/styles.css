@@ -392,11 +392,16 @@ article > h5{
     display: flex; 
     justify-content: space-between;
     align-items: center;
+    gap: 10px; 
 }
 
-.footer  button{
+.footer button{
     border: 0; 
-    padding: 15px 25px; 
+     
+    height: 50px; 
+    width: 80%; 
+    
+    margin: .5rem 0;
     align-items: center;
     border-radius: 7px;
     cursor: pointer;
@@ -562,4 +567,15 @@ label{
     transform: scale(1.1);
     transition: all 0.5s;
     /* content: "Are you sure you want to submit?"; */
+}
+
+main .center, div .center{
+    text-align: center;
+    padding: 10px 20px;
+    
+}
+
+.error-container{
+    height: 470px; 
+
 }

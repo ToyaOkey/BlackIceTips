@@ -2,36 +2,36 @@
     <main>
        <div class="container">
         <div class="product-image">
-            <img src="images/coaching.svg" alt="Coaching big picture">
+            <img src="<%= service.image %>" alt="<%= service.details%>">
         </div>
       
        <div class="product-details">
         <header class="item-header">
-            <h1 class="title">Black Ice Coaching</h1>
-            <span class="condition">Condition: Beginner</span>
+            <h1 class="title"><%= service.title%></h1>
+            <span class="condition">Condition: <%= service.condition%></span>
             <div class="price-offers">
                 <p>PRICE</p>
-                <span class="before">$35</span>
-                <span class="current">$30</span>
-                <p class="item-offer">5 offers</p>
+                <!-- <span class="before"><$35></span> -->
+                <span class="current">$<%= service.price %></span>
+                <p class="item-offer"><%= service.offers%> OFFERS</p>
             </div>
         </header>   
             <article>
                 <h5>
-                    This is premium one-on-one coaching for ranking up while looking for specific feedback on your skill.
+                    <%= service.details%>
                 </h5>
             </article>
             <div class="seller">
-                <h5>Seller: TooLazyToya</h5>
+                <h5>Seller: <%= service.seller%></h5>
             </div>
-            <div class="footer">
-                <button type="button" id = "edit-button"><img src="images/edit-box-icon.svg" alt="edit icon">
+            <form action="" class="footer">
+                <button type="submit" id = "edit-button" formmethod="GET" formaction="/blackiceservices/<%= service.id%>/edit"><img src="../../images/edit-box-icon.svg" alt="edit icon">
                     Edit 
                 </button>
-                <button type="button" id="delete-button"><img src="images/delete-button.svg" alt="delete icon" width ="25" height="25"> 
+                <button type="submit" id="delete-button" formmethod="POST" formaction="/blackiceservices/<%= service.id%>?_method=DELETE"><img src="../../images/delete-button.svg" alt="delete icon" width ="25" height="25"> 
                     Delete
                 </button>
-            </div>
+            </form>
         </div>
        </div>
     </main>

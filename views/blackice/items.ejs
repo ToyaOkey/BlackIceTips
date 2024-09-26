@@ -1,8 +1,30 @@
 <%- include('../partials/header.ejs')%>  
     <main>
       <!-- Items Section -->
-
+    <h3 class = "center"> Select an item: </h3>
       <div class="wrapper">
+        <% if(services.length > 0){ %>
+
+          <% services.forEach( service => { %> 
+            <a href="/blackiceservices/<%= service.id%>">
+              <div class="single-card">
+                <div class="img-area">
+                  <img src="<%= service.image%>" alt="<%= service.details %>" >
+                </div>
+                <div class="info">
+                  <h3><%= service.title%></h3>
+                  <p class="price">$<%= service.price%></p>
+                  <p class="quality"><%= service.condition%></p>
+                  <p class="offers"><%= service.offers%> Offers</p>
+                </div>
+              </div>
+            </a>
+          <% }); %> 
+        <% } %> 
+
+      </div>
+
+      <!-- <div class="wrapper">
         <a href="item.html">
           <div class="single-card">
             <div class="img-area">
@@ -82,6 +104,6 @@
             </div>
           </div>
         </a>
-      </div>
+      </div> -->
     </main>
 <%- include('../partials/footer.ejs')%>  
