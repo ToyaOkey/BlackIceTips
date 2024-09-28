@@ -19,7 +19,7 @@ const services = [
         id: '2', 
         title: 'Game Sense Guide', 
         seller: 'Spoit', 
-        condition: 'Intertmediate', 
+        condition: 'Intermediate', 
         price: '9.99', 
         details: 'Learn the best angles on each map.',
         image: '../images/game-sense-guide.svg', 
@@ -72,6 +72,8 @@ const services = [
     }
 ]
 
+services.sort((a, b) => Number(a.price) - Number(b.price));
+
 exports.find = () => services;
 
 exports.findById = (id) => services.find(service => service.id === id);
@@ -79,21 +81,25 @@ exports.findById = (id) => services.find(service => service.id === id);
 exports.save = (service) => {
     service.id = uuidv4();
     services.push(service);
+    services.sort((a, b) => Number(a.price) - Number(b.price));
 };
 
 exports.updateById = (id, newService) => {
     let service = services.find(service => service.id === id); 
 
     if(service !== undefined){
+        // console.log(newService['condition-dropdown']); 
         service.title = newService.title; 
         service.seller = newService.seller; 
-        service.condition = newService.condition; 
+        service.condition = newService['condition-dropdown']; 
+        // console.log(service.condition);
         service.price = newService.price; 
         service.details = newService.details; 
         service.image = newService.image; 
-        service.active = newService.active; 
-        service.offers = newService.offers; 
-        // console.log(service); 
+        // service.active = newService.active; 
+        // service.offers = newService.offers; 
+        console.log(service); 
+        services.sort((a, b) => Number(a.price) - Number(b.price));
         return true; 
     }
     return false; 
@@ -109,3 +115,19 @@ exports.deleteById = (id) => {
         return false;
     }
 }
+
+// exports.search = (searchTerm) => {
+//     // console.log(services.filter(service => {service.title.includes("game"))});
+
+//     return services.filter((service) => {
+//         console.log(service.title.includes("game"));
+//         service.title.toLowerCase().includes(searchTerm.toLowerCase())
+//         });
+// }
+
+exports.search = (searchTerm) => 
+    services.filter(service => { 
+        return service.title.toLowerCase().includes(searchTerm.toLowerCase()) || service.details.toLowerCase().includes(searchTerm.toLowerCase())
+
+    });
+

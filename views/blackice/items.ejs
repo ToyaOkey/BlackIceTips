@@ -1,12 +1,12 @@
 <%- include('../partials/header.ejs')%>  
     <main>
       <!-- Items Section -->
-    <h3 class = "center"> Select an item: </h3>
+      <% if(services.length > 0){ %>
+        <h3 class = "center"> Select an item: </h3>
       <div class="wrapper">
-        <% if(services.length > 0){ %>
 
           <% services.forEach( service => { %> 
-            <a href="/blackiceservices/<%= service.id%>">
+            <a href="/items/<%= service.id%>">
               <div class="single-card">
                 <div class="img-area">
                   <img src="<%= service.image%>" alt="<%= service.details %>" >
@@ -20,7 +20,14 @@
               </div>
             </a>
           <% }); %> 
-        <% } %> 
+        <% } else { %>  
+          <main>
+            <div class="none-container">
+                <h1 class = "center">Sorry there are no available items.</h1>
+                <p class = "center">Have you considered AimLabs?</p>
+            </div>
+        </main>
+        <% } %>
 
       </div>
 

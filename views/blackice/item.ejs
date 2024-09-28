@@ -25,10 +25,10 @@
                 <h5>Seller: <%= service.seller%></h5>
             </div>
             <form action="" class="footer">
-                <button type="submit" id = "edit-button" formmethod="GET" formaction="/blackiceservices/<%= service.id%>/edit"><img src="../../images/edit-box-icon.svg" alt="edit icon">
+                <button type="submit" id = "edit-button" formmethod="GET" formaction="/items/<%= service.id%>/edit"><img src="../../images/edit-box-icon.svg" alt="edit icon">
                     Edit 
                 </button>
-                <button type="submit" id="delete-button" formmethod="POST" formaction="/blackiceservices/<%= service.id%>?_method=DELETE"><img src="../../images/delete-button.svg" alt="delete icon" width ="25" height="25"> 
+                <button type="submit" id="delete-button" formmethod="POST" formaction="/items/<%= service.id%>?_method=DELETE"><img src="../../images/delete-button.svg" alt="delete icon" width ="25" height="25"> 
                     Delete
                 </button>
             </form>

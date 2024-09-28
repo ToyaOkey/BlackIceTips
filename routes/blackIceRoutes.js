@@ -5,29 +5,35 @@ const multer = require('multer');
 const upload = multer({dest: '../public/images'}).single('image'); 
 
 
-// GET /blackiceservices :show all services offered
+// GET /items :show all services offered
 router.get('/', controller.index); 
 
-// GET /blackiceservices/new : leads to form to add a service 
+// GET /items/new : leads to form to add a service 
 router.get('/new', controller.new);
 
-// POST /blackiceservices create a new service 
+// POST /items create a new service 
 
 router.post('/', controller.create);
 // router.post('/', controller.create, upload);
 
-// GET /blackiceservices/:id : show details of a single service
+// //  /search an existing item
+
+// GET /items/:id : show details of a single service
 router.get('/:id', controller.show); 
 
-// GET /blackiceservices/:id/edit : leads to form to edit an exisiting service 
+// GET /items/:id/edit : leads to form to edit an exisiting service 
 router.get('/:id/edit', controller.edit); 
 
-// PUT /blackiceservices/:id update an existing service 
+// PUT /items/:id update an existing service 
 
 router.put('/:id', controller.update);
 
-// DELETE /blackiceservices/:id delete an existing service 
+// DELETE /items/:id delete an existing service 
 router.delete('/:id', controller.delete);
+
+
+
+
 
 module.exports = router; 
 

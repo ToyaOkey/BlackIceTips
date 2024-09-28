@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 }); 
 
 // uses blackice for routing 
-app.use('/blackiceservices', blackIceRoutes); 
+app.use('/items', blackIceRoutes); 
 
 app.use((req, res, next) => {
     let err = new Error(`The page ${req.url} does not exist`);

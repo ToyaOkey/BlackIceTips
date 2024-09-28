@@ -68,7 +68,7 @@ body{
 
 
 header, footer{
-    background-color: #8ea9c3; 
+    background-color: #000000; 
     margin: auto 0; 
     text-align: center;
     color: #121518; 
@@ -344,16 +344,19 @@ h5{
   }
 
 
+
 .product-details{
     padding: 40px; 
     background-color: #8ea9c3;
-    .title{
-        text-transform: uppercase; 
-        margin: 0; 
 
-    }
+
 }
 
+product-details .title{
+    text-transform: uppercase; 
+    margin: 0; 
+
+}
 .condition{
     text-transform: uppercase;
     font-style: italic; 
