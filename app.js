@@ -4,7 +4,7 @@ const express = require('express');
 const morgan = require('morgan'); 
 const blackIceRoutes = require('./routes/blackIceRoutes');
 const methodOverride = require('method-override');
-// const multer = require('multer');
+const mongoose = require('mongoose');
 const app = express(); 
 
 // app setup 
