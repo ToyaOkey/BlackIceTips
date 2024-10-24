@@ -1,20 +1,38 @@
 const express = require('express'); 
 const model = require('../models/blackice'); 
 const router = express.Router();
-const multer = require('multer');
-const {v4: uuidv4} = require('uuid'); 
+// const multer = require('multer');
 const {upload} = require('../middleware/fileUpload');
 
-exports.index = (req, res) => {
-
-    let services = model.find(); 
+exports.index = (req, res, next) => {
     // console.log(req.query.query);
-    if(req.query.query !== undefined){
-        services = model.search(req.query.query);
-        // console.log(services);
-    } 
-    res.render('./blackice/items', {services}); 
-}; 
+    const searchQuery = req.query.query;
+
+    let query = {};
+
+    // check if anything is ? and after
+    if (searchQuery !== undefined) {
+        // case insensitive search | if nothing should return empty {} thingy
+        // https://www.mongodb.com/docs/manual/reference/method/db.collection.find/
+        query = {
+            $or: [
+                { title: { $regex: searchQuery, $options: 'i' } }, 
+                { details: { $regex: searchQuery, $options: 'i' } }
+            ]
+        };
+    }
+    // this should search with the query object if nothing then it will just show everything 
+    model.find(query)
+    .sort({price: 1}) // we love chaining stuff 
+    .then(services => {
+        res.render('./blackice/items', { services });
+        // console.log(services.sort())
+    })
+    .catch(err => {
+        console.error('Error occurred during model.find():', err);
+        next(err);
+    });
+};
 
 exports.new = (req, res) => {
     res.render('./blackice/new'); 
@@ -23,92 +41,115 @@ exports.new = (req, res) => {
 
 exports.create = (req, res, next) => {
     // console.log("here"); 
+    let service = new model(req.body); 
+    
     
     upload(req, res, (err) => {
         if(err){
-            res.status(400);
-        }
-        let service = req.body; 
-        
-        service.id = uuidv4(); 
-        service.offers = 0; 
-        console.log(req.file); 
-        if (req.file !== undefined){
-            service.image = `/images/${req.file.filename}`;
-            service.condition = req.body['condition-dropdown'];
-            model.save(service);
-            res.redirect('./items');
-
-            // do same for the update 
-        } else {
-            // res.redirect('./items');
             err = new Error('File upload failed, please check file size is under 2MB or that it is JPG, SVG, PNG, OR GIF'); 
             err.status = 404;
-            next(err);
+            return next(err);
         }
+        let service = new model(req.body); 
+        if(req.file){
+            service.image = `/images/${req.file.filename}`;
+        }
+        service.save()
+        .then(newItem => {
+            res.redirect('/items');
+        })
+        .catch(err => {
+            if(err.name === 'ValidationError') {
+                err.status = 400; 
+            }
+            next(err)}
+        );
+        
+        service.condition = req.body['condition-dropdown'];
 
     });
-    // let service  = req.body; 
-    // model.save(service); 
-    // res.redirect('./items');
+
 };
 
 exports.show = (req, res, next) =>{
     let id = req.params.id;
-    let service = model.findById(id);
-    // console.log(service);
-    if(service !== undefined) {
-        res.render('./blackice/item', {service});
-        // console.log("debugging");
-    } else {
-        let err = new Error(`Cannot find id: ${id}`); 
-        err.status = 404; 
-        next(err);
+    if(!id.match(/^[0-9a-fA-F]{24}$/)){
+        let err = new Error(`Invalid id format: ${id}`);
+        err.status = 400;
+        return next(err);
     }
+    model.findById(id)
+    .then(service => {
+        if(service){
+            res.render('./blackice/item', {service});
+        } else {
+            let err = new Error(`Cannot find id: ${id}`); 
+            err.status = 404; 
+            next(err);
+        }
+    })
+    .catch(err=>next(err));
+    
+
      
 }; 
 
 exports.edit = (req, res, next) => {
     let id = req.params.id; 
-    let service = model.findById(id);
-    if(service !== undefined) {
-        
-        res.render('./blackice/edit', {service});
-    } else {
-        let err = new Error(`Cannot find id: ${id}`); 
-        err.status = 404; 
-        next(err);
+    
+    if(!id.match(/^[0-9a-fA-F]{24}$/)){
+        let err = new Error('Invalid id format'); 
+        err.status = 400;
+        return next(err); 
     }
+    model.findById(id)
+    .then(service  => {
+        console.log(service);
+        if(service){
+            return res.render('./blackice/edit', {service});
+        } else {
+            let err = new Error(`Cannot find id: ${id}`); 
+            err.status = 404; 
+            next(err);
+        }
+    })
+    .catch(err=>next(err)); 
+
 }
 
 exports.update = (req, res, next) => {
-    let service = req.body;
+    // let service = req.body;
+    let id = req.params.id;
+    if(!id.match(/^[0-9a-fA-F]{24}$/)){
+        let err = new Error('Invalid id format'); 
+        err.status = 400;
+        return next(err); 
+    }
+
 
     upload(req, res, (err) => {
         if(err){
-            res.status(400);
+            err = new Error('File upload failed. Please check file size is under 2MB or valid file format (JPG, PNG, etc.)');
+            err.status = 400;
+            return next(err);
         }
         let service = req.body;
         let id = req.params.id;
-        // console.log(service);
-        // console.log(service.image);
-        if(req.file !== undefined){
-            service.image = '/images/' + req.file.filename; 
-            if (model.updateById(id, service)) {
+        if(req.file){
+            service.image = '/images/' + req.file.filename;
+        }
+        service.condition = req.body['condition-dropdown'];
+        model.findByIdAndUpdate(id, service, {useFindandModify: false, runValidators: true})
+        .then(service => {
+            if(service){
                 res.redirect('/items/'+id);
             } else {
-                let err = new Error(`Cannot find id: ${id}`);
+                let err = new Error(`Cannot find item with id: ${id}`); 
                 err.status = 404;
-                next(err);
+                return next(err)
             }
-
-        } else {
-            err = new Error('File upload failed, please check file size is under 2MB or that it is JPG, SVG, PNG, OR GIF')
-            err.status = 404;
-            next(err);
-        }
-        
-
+        })
+        .catch(err=>next(err));
         
     });
 
@@ -116,12 +157,25 @@ exports.update = (req, res, next) => {
 
 exports.delete = (req, res, next) => {
     let id = req.params.id; 
-    if(model.deleteById(id)){
-        res.redirect('/items');
-    } else {
-        let err = new Error(`Cannot find id: ${id}`);
-        err.status = 404;
-        next(err);
+
+    
+    if(!id.match(/^[0-9a-fA-F]{24}$/)){
+        let err = new Error('Invalid item id'); 
+        err.status = 400;
+        return next(err); 
     }
+
+    model.findByIdAndDelete(id, {useFindandModify: false})
+    .then(service => {
+        if(service){
+            res.redirect('/items');
+        } else {
+            let err = new Error(`Cannot find item with id: ${id}`);
+            err.status = 404;
+            return next(err);
+        }
+    })
+    .catch(err => next(err));
+
 }; 
 

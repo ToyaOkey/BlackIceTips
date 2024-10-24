@@ -11,8 +11,17 @@ const app = express();
 
 let port = 3000; 
 let host = 'localhost'; 
+const mongoUri = 'mongodb+srv://tokeynwa:wujcjhQ1Kqm7bEaZ@stories-cluster.i5r4x.mongodb.net/project3?retryWrites=true&w=majority&appName=Stories-Cluster'
 app.set('view engine', 'ejs'); 
 
+// connect to mongodb
+mongoose.connect(mongoUri)
+.then(() => {
+    app.listen(port, host, () => {
+        console.log(`Black Ice Tips is running on http://${host}:${port}`);
+    }); 
+})
+.catch(err =>  console.log(err.message)); 
 // middleware
 
 
@@ -37,6 +46,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
     if(!err.status){
+        console.log(err.message);
         err.status = 500; 
         err.message = ('Internal Server Error'); 
     }
@@ -44,8 +54,4 @@ app.use((err, req, res, next) => {
     res.render('error', {error: err});
 }); 
 
-// server setip 
 
-app.listen(port, host, () => {
-    console.log(`Black Ice Tips is running on http://${host}:${port}`);
-}); 
