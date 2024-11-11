@@ -1,0 +1,29 @@
+
+<%- include('../partials/header.ejs')%>
+<div class="profile">
+    <h2 class="center">Welcome, <%=user.firstName%></h2>
+    <% if(services.length){ %> 
+        <p class="center">You have created the following products:  </p>
+        
+        <% services.forEach(service => { %> 
+            <div class="profile-container">
+            <a  href="/items/<%=service.id%>"><p><%= service.title %></p></a>
+            <p>Status: <%= service.active ? "Active" : "Inactive" %></p>
+            <form action="" class="footer">
+                <button type="submit" id = "edit-button" formmethod="GET" formaction="/items/<%= service.id%>/edit"><img src="../../images/edit-box-icon.svg" alt="edit icon">
+                    Edit 
+                </button>
+                <button type="submit" id="delete-button" formmethod="POST" formaction="/items/<%= service.id%>?_method=DELETE"><img src="../../images/delete-button.svg" alt="delete icon" width ="25" height="25"> 
+                    Delete
+                </button>
+            </form>
+        </div>
+    <%   });   
+     } else { %>
+     
+        <p class="center">You have not created any products</p>
+    </div>
+    <% } %>
+        
+    </div>
+    <%- include('../partials/footer.ejs')%>

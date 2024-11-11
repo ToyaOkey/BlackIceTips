@@ -40,10 +40,6 @@ exports.new = (req, res) => {
 
 
 exports.create = (req, res, next) => {
-    // console.log("here"); 
-    let service = new model(req.body); 
-    
-    
     upload(req, res, (err) => {
         if(err){
             err = new Error('File upload failed, please check file size is under 2MB or that it is JPG, SVG, PNG, OR GIF'); 
@@ -51,21 +47,29 @@ exports.create = (req, res, next) => {
             return next(err);
         }
         let service = new model(req.body); 
+        service.condition = req.body['condition-dropdown'];
+        service.seller = req.session.user;
+        console.log(service); 
         if(req.file){
             service.image = `/images/${req.file.filename}`;
         }
         service.save()
         .then(newItem => {
+            req.flash('success', "You have successfully created a new item."); 
             res.redirect('/items');
+            
         })
         .catch(err => {
             if(err.name === 'ValidationError') {
+                console.log(req.session);
                 err.status = 400; 
+                req.flash('error', err.message);
+                return res.redirect('/items/new');
             }
             next(err)}
         );
         
-        service.condition = req.body['condition-dropdown'];
+        
 
     });
 
@@ -73,13 +77,9 @@ exports.create = (req, res, next) => {
 
 exports.show = (req, res, next) =>{
     let id = req.params.id;
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error(`Invalid id format: ${id}`);
-        err.status = 400;
-        return next(err);
-    }
-    model.findById(id)
+    model.findById(id).populate('seller', 'firstName lastName')
     .then(service => {
+        
         if(service){
             res.render('./blackice/item', {service});
         } else {
@@ -97,15 +97,11 @@ exports.show = (req, res, next) =>{
 exports.edit = (req, res, next) => {
     let id = req.params.id; 
     
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error('Invalid id format'); 
-        err.status = 400;
-        return next(err); 
-    }
     model.findById(id)
     .then(service  => {
         console.log(service);
         if(service){
+           
             return res.render('./blackice/edit', {service});
         } else {
             let err = new Error(`Cannot find id: ${id}`); 
@@ -120,11 +116,6 @@ exports.edit = (req, res, next) => {
 exports.update = (req, res, next) => {
     // let service = req.body;
     let id = req.params.id;
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error('Invalid id format'); 
-        err.status = 400;
-        return next(err); 
-    }
 
 
     upload(req, res, (err) => {
@@ -142,6 +133,7 @@ exports.update = (req, res, next) => {
         model.findByIdAndUpdate(id, service, {useFindandModify: false, runValidators: true})
         .then(service => {
             if(service){
+                req.flash('success', 'You have successfully updated the item.');
                 res.redirect('/items/'+id);
             } else {
                 let err = new Error(`Cannot find item with id: ${id}`); 
@@ -157,17 +149,10 @@ exports.update = (req, res, next) => {
 
 exports.delete = (req, res, next) => {
     let id = req.params.id; 
-
-    
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error('Invalid item id'); 
-        err.status = 400;
-        return next(err); 
-    }
-
     model.findByIdAndDelete(id, {useFindandModify: false})
     .then(service => {
         if(service){
+            req.flash('success', 'You have successfully deleted the item.');
             res.redirect('/items');
         } else {
             let err = new Error(`Cannot find item with id: ${id}`);

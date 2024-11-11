@@ -1,0 +1,22 @@
+
+<%- include('../partials/header.ejs')%>
+<div class="form-container login">
+    <h1>Login Here</h1>
+    <p>We are glad to see you come back or that you made an account, feel free to login here!</p>     
+    <form action = '/users/login' method = 'POST' class="user-form">
+        <div class="row">
+            
+        
+        <label for="email">Email Address</label></td>
+        <input type="email" id="email" name="email" required></td>
+        
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+        </div>
+        <input type="submit" value="Login">     
+    </form>
+</div>
+    </div>
+<%- include('../partials/footer.ejs')%>
+
+

@@ -22,8 +22,9 @@
                 </h5>
             </article>
             <div class="seller">
-                <h5>Seller: <%= service.seller%></h5>
+                <h5>Seller: <%= service.seller.firstName + " " + service.seller.lastName %></h5>
             </div>
+            <!-- <% if(user == service.seller._id){ %> 
             <form action="" class="footer">
                 <button type="submit" id = "edit-button" formmethod="GET" formaction="/items/<%= service.id%>/edit"><img src="../../images/edit-box-icon.svg" alt="edit icon">
                     Edit 
@@ -32,6 +33,7 @@
                     Delete
                 </button>
             </form>
+            <% } %>  -->
         </div>
        </div>
     </main>

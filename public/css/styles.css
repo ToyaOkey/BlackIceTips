@@ -614,3 +614,112 @@ main .center, div .center{
     min-height: 470px; 
 }
 
+
+.profile-container{
+    background-color: hsl(0, 8%, 92%); 
+    color:rgb(35, 71, 214); 
+    padding: 35px 50px; 
+    width: 50%; 
+    min-width: 420px;
+    margin: 10px; 
+    margin-right: 10px; 
+    padding: 35px 50px;
+    margin: 25px auto; 
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 20px 30px 25px rgba(0,0,0, 0.15);
+    /* color: rgb(7, 7, 7);  */
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+}
+
+
+.profile-container a{
+    text-decoration: none;
+    font-size: large;
+    color:rgb(10, 31, 107);
+}
+
+.profile-container a p:hover::after {
+    content: ' Click To Show Item';
+    font-size: 0.7rem;
+}
+
+
+.profile-container a p:hover{
+    transition: transform 0.3s ease; 
+    transform: scale(1.5); 
+}
+
+.center{
+    margin: auto; 
+    text-align: center;
+}
+
+
+.form-container input[type="submit"] {
+  
+
+    border: none; 
+    padding: 10px 20px;
+    background: linear-gradient(130deg, #7a809b, #29346c);
+    border-radius: 3px;
+    font-family: inherit;
+    color: white; 
+    width: 100%; 
+    cursor: pointer;
+
+}
+
+.form-container input[type="submit"]:hover {
+    background: linear-gradient(130deg, #29346c, #7a809b);
+    font-weight: bold;
+    transform: scale(1.1);
+    transition: all 0.5s;
+}
+
+.error, .success{
+    font-size: 18px;
+    margin-bottom: 10px;
+    
+    text-align: center;
+}
+
+.error{
+    color: red;
+    background-color: hsla(0, 0%, 100%, 0.122);
+    padding: 10px; 
+    margin-top: 10px; 
+    border-radius: 5px;
+    transition: all;
+    box-shadow: 0 2px 5px rgba(0,0,0, 0.1);
+    background: linear-gradient(to bottom, #fcfafa, 0%,  rgb(88, 106, 124) 100%);
+    
+    
+}
+ 
+.success{
+    color: rgb(18, 190, 18);
+    font-weight: bold;
+    background-color: hsla(0, 0%, 100%, 0.122);
+    padding: 10px; 
+    margin-top: 10px; 
+    border-radius: 5px;
+    transition: all;
+    box-shadow: 0 2px 5px rgba(0,0,0, 0.1);
+    background: linear-gradient(to bottom, #fcfafa, 0%,  rgb(88, 106, 124) 100%);
+}
+
+.form-container.login{
+    min-height: 100px;
+    
+
+}
+
+.form-container.login input[type="submit"]{
+    margin-top: 50px;
+}
+
+.profile{
+    min-height: 63.7vh;
+}

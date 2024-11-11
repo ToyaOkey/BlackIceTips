@@ -1,0 +1,36 @@
+
+<%- include('../partials/header.ejs')%>
+   <div class="form-container">
+        <h1>Sign Up Here</h1>
+        <p>Start sharing your Rainbow Six Siege expertise, connect with players, and sell tips or coaching to help others level up their game by signing up!</p>     
+
+    <form action = '/users' method = 'POST' class="user-form">
+        <div class="row">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required>
+            
+            <label for="lastName">Last Name</label></td>
+            <input type="text" id="lastName" name="lastName" required></td>
+        
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email">
+            
+            <label for="password">Password</label>
+            <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            minlength="8"  
+            pattern="(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}" 
+             title="Password must be at least 8 characters long and contain at least one number, one uppercase letter, and one special character"
+            required>
+
+        </div>  
+        <small>For security purposes your password must contain: <strong>a capital letter, a number, and a special character.</strong></small>     
+        <input type="submit" value="Sign Up">    
+    </form>
+
+</div>
+
+    </div>
+    <%- include('../partials/footer.ejs')%>
