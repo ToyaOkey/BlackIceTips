@@ -4,7 +4,11 @@ const router = express.Router();
 const multer = require('multer');
 const upload = multer({dest: '../public/images'}).single('image'); 
 const {isLoggedIn, isAuthor}  = require('../middleware/auth')
-const {validateId} = require('../middleware/validator'); 
+const {validateId,  validateService, validateResult, validateUpdate} = require('../middleware/validator'); 
+const offerRoutes = require('./offerRoutes');  
+const {body} = require('express-validator');
+
+
 
 // GET /items :show all services offered
 router.get('/', controller.index); 
@@ -14,15 +18,15 @@ router.get('/new', isLoggedIn, controller.new);
 
 // POST /items create a new service 
 
-router.post('/', isLoggedIn, controller.create);
+router.post('/', isLoggedIn,  controller.create);
 // router.post('/', controller.create, upload);
 
 
 // GET /items/:id : show details of a single service
-router.get('/:id', validateId, controller.show);
+router.get('/:id', controller.show);
 
 // GET /items/:id/edit : leads to form to edit an exisiting service 
-router.get('/:id/edit', validateId, isLoggedIn, isAuthor, controller.edit);
+router.get('/:id/edit', isLoggedIn, isAuthor, controller.edit);
 
 // PUT /items/:id update an existing service 
 router.put('/:id', validateId, isLoggedIn, isAuthor, controller.update);
@@ -30,7 +34,7 @@ router.put('/:id', validateId, isLoggedIn, isAuthor, controller.update);
 // DELETE /items/:id delete an existing service 
 router.delete('/:id', validateId, isLoggedIn, isAuthor, controller.delete);
 
-
+router.use('/:id/offers', offerRoutes);
 
 module.exports = router; 
 

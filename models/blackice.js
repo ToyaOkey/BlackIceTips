@@ -11,7 +11,12 @@ const itemSchema = new Schema({
     details: {type: String,  required: [true, 'Content is required'], 
         minLength: [10, 'The content should be atleast 10 characters']}, 
     image: {type: String, required: true}, 
-    offers: {type: Number, default: 0},
+    offers: {
+        type: Schema.Types.ObjectId,
+        ref: 'Offer'
+    },
+    totalOffers: {type: Number, default: 0},
+    highestOffer: {type: Number, default: 0},
     active: {type: Boolean, default: true}
 }, 
 {timestamps: true}); 

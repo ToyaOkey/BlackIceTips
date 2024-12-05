@@ -723,3 +723,60 @@ main .center, div .center{
 .profile{
     min-height: 63.7vh;
 }
+
+.badge {
+    padding: 0.2em 0.5em;
+    border-radius: 5px;
+    color: white;
+}
+
+.badge.accepted {
+    background-color: green;
+}
+.badge.rejected {
+    background-color: red;
+}
+.badge.pending {
+    background-color: orange;
+}
+
+thead {
+    background-color: #007BFF;
+    color: #fff;
+    text-align: left;
+}
+
+thead th {
+    padding: 15px;
+    font-weight: bold;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ddd;
+    color: rgb(198, 198, 198); 
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+    color: black;  
+}
+
+tbody td {
+    padding: 15px;
+    vertical-align: middle;
+}
+
+.red{
+    color: #7c0a10;
+}
+
+#offer-box{
+    font-weight: 100%; 
+    font-weight: 400; 
+    padding: 8px 10px; 
+    border-radius: 5px;
+    border: 1.2px solid #c4cae0; 
+    margin-top: 5px; 
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}

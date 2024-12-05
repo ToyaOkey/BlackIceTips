@@ -1,0 +1,37 @@
+<%- include('../partials/header.ejs')%>
+
+<h1 class = "center">Offers for <%= item.title %></h1>
+<div class="center">
+<% if (offers.length > 0) { %>
+    <table class="center">
+        <thead>
+            <tr>
+                <th>Buyer</th>
+                <th>Offer Amount</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% offers.forEach(offer => { %>
+                <tr>
+                    <td> <%= offer.user.firstName %> <%= offer.user.lastName %></td>
+                    <td>$<%= offer.amount.toFixed(2) %></td>
+                    <td><%= offer.status %></td>
+                    <td>
+                        <% if (item.active && offer.status === 'pending') { %>
+                            <form action="/items/<%= item.id %>/offers/<%= offer.id %>" method="POST">
+                                <button type="submit" class="badge accepted">Accept</button>
+                            </form>
+                        <% } %>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+<% } else { %>
+    <p>No offers have been made for this item.</p>
+<% } %>
+</div>
+
+<%- include('../partials/footer.ejs')%>

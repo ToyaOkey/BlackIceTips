@@ -1,12 +1,24 @@
 const model = require('../models/user');
 const Item = require('../models/blackice');
+const Offer = require('../models/offers');
+
+const {body} = require('express-validator');
+const {validationResult} = require('express-validator');
+
 exports.new = (req, res)=>{
     return res.render('./user/new');
 };
 
 exports.create = (req, res, next)=>{
-        
+        let errors = validationResult(req); 
         let user = new model(req.body);
+
+        if (!errors.isEmpty()) {
+            errors.array().forEach( error => {
+                req.flash('error', error.msg);
+            });
+            return res.redirect('/users/new');
+        }
         
         user.save()
         .then(user=> {
@@ -41,7 +53,16 @@ exports.getUserLogin = (req, res, next) => {
 }
 
 exports.login = (req, res, next)=>{
-   
+    let errors = validationResult(req); 
+
+        
+    if (!errors.isEmpty()) {
+        errors.array().forEach( error => {
+            req.flash('error', error.msg);
+        });
+        return res.redirect('login');
+    }
+
     let email = req.body.email;
     let password = req.body.password;
     
@@ -75,12 +96,15 @@ exports.login = (req, res, next)=>{
 
 
 exports.profile = (req, res, next)=>{
+    
     let id = req.session.user;
-    Promise.all([model.findById(id), Item.find({seller: id})])
+    Promise.all([model.findById(id), Item.find({seller: id}), Offer.find({ user: id }).populate('item', 'title price')])
     .then(results=>{
-        const [user, services] = results; 
+        const [user, services, offers] = results; 
+       console.log(offers)
+        
 
-        res.render('./user/profile', {user, services})
+        res.render('./user/profile', {user, services, offers})
     })
     .catch(err=>next(err));
 };

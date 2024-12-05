@@ -22,7 +22,11 @@ const userSchema = new Schema({
         },
         message: "Password must contain at least one number, one uppercase letter, and one special character and be length of 8."
 
-    }   }
+    }},
+    offers: {
+      type: Schema.Types.ObjectId, ref: 'Offer'
+    }
+
 }); 
 
 

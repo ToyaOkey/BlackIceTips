@@ -13,7 +13,8 @@
                 <p>PRICE</p>
                 <!-- <span class="before"><$35></span> -->
                 <span class="current">$<%= service.price %></span>
-                <p class="item-offer"><%= service.offers%> OFFERS</p>
+                <p class="item-offer"><%= service.totalOffers%> OFFERS</p>
+                <p class="highest-offer">HIGHEST OFFER: $<%= service.highestOffer%></p>
             </div>
         </header>   
             <article>
@@ -23,17 +24,23 @@
             </article>
             <div class="seller">
                 <h5>Seller: <%= service.seller.firstName + " " + service.seller.lastName %></h5>
+                
             </div>
-            <!-- <% if(user == service.seller._id){ %> 
-            <form action="" class="footer">
-                <button type="submit" id = "edit-button" formmethod="GET" formaction="/items/<%= service.id%>/edit"><img src="../../images/edit-box-icon.svg" alt="edit icon">
-                    Edit 
-                </button>
-                <button type="submit" id="delete-button" formmethod="POST" formaction="/items/<%= service.id%>?_method=DELETE"><img src="../../images/delete-button.svg" alt="delete icon" width ="25" height="25"> 
+            
+                 <% if (service.active) { %>
+                    <form action="/items/<%= service.id%>/offers" method = "POST" class="footer">
+                        <input id = "offer-box" type="number" name= "amount" placeholder="Enter an offer" min="0.01" step = "0.01" required>
+                    <button type="submit" id = "edit-button"><img src="../../images/edit-box-icon.svg" alt="edit icon">
+                        Make Offer 
+                    </button>
+                <% } else { %> 
+                    <p class="center red">This item is no longer active.</p>
+                <% } %>
+
+                <!-- <button type="submit" id="delete-button" formmethod="POST" formaction="/items/<%= service.id%>?_method=DELETE"><img src="../../images/delete-button.svg" alt="delete icon" width ="25" height="25"> 
                     Delete
-                </button>
+                </button> -->
             </form>
-            <% } %>  -->
         </div>
        </div>
     </main>

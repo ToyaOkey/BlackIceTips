@@ -10,12 +10,14 @@ const app = express();
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
+// const bodyParser = require('body-parser');
+
 
 // app setup 
 
 let port = 3000; 
 let host = 'localhost'; 
-const mongoUri = 'mongodb+srv://tokeynwa:wujcjhQ1Kqm7bEaZ@stories-cluster.i5r4x.mongodb.net/project4?retryWrites=true&w=majority&appName=Stories-Cluster'
+const mongoUri = 'mongodb+srv://tokeynwa:wujcjhQ1Kqm7bEaZ@stories-cluster.i5r4x.mongodb.net/project5?retryWrites=true&w=majority&appName=Stories-Cluster'
 app.set('view engine', 'ejs'); 
 
 // connect to mongodb
@@ -33,7 +35,7 @@ app.use(
         secret: "ajfeirf90aeu9eroejfoefj",
         resave: false,
         saveUninitialized: false,
-        store: new MongoStore({mongoUrl: 'mongodb+srv://tokeynwa:wujcjhQ1Kqm7bEaZ@stories-cluster.i5r4x.mongodb.net/project4?retryWrites=true&w=majority&appName=Stories-Cluster'}),
+        store: new MongoStore({mongoUrl: 'mongodb+srv://tokeynwa:wujcjhQ1Kqm7bEaZ@stories-cluster.i5r4x.mongodb.net/project5?retryWrites=true&w=majority&appName=Stories-Cluster'}),
         cookie: {maxAge: 60*60*1000}
         })
 );
@@ -49,6 +51,7 @@ app.use((req, res, next) => {
 
 app.use(express.static('public')); 
 app.use(express.urlencoded({extended: true})); 
+// app.use(express.json());
 app.use(morgan('tiny')); 
 app.use(methodOverride('_method')) 
 

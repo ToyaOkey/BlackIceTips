@@ -16,14 +16,45 @@
                 <button type="submit" id="delete-button" formmethod="POST" formaction="/items/<%= service.id%>?_method=DELETE"><img src="../../images/delete-button.svg" alt="delete icon" width ="25" height="25"> 
                     Delete
                 </button>
+                <% if (service.totalOffers > 0) { %>
+                    <button type="submit" id="view-offers-button" formmethod="GET" formaction="/items/<%= service.id %>/offers">
+                        View Offers
+                    </button>
+                    <% } else { %>
+                    <button type="button" id="view-offers-button" disabled>
+                        No Offers
+                    </button>
+                    <% } %>
+                
             </form>
         </div>
     <%   });   
      } else { %>
-     
         <p class="center">You have not created any products</p>
-    </div>
+    
     <% } %>
-        
-    </div>
+
+
+    
+    <h2 class="center">Your Offers</h2>
+    <% if (offers.length > 0) { %>
+        <ul>
+            <% offers.forEach(offer => { %>
+                <li class="center">
+                    <strong>Item:</strong> <%= offer.item.title %> - <strong>Amount:</strong> $<%= offer.amount.toFixed(2) %>
+                    <% if (offer.status === 'accepted') { %>
+                        <span class="badge accepted">Accepted</span>
+                    <% } else if (offer.status === 'rejected') { %>
+                        <span class="badge rejected">Rejected</span>
+                    <% } else { %>
+                        <span class="badge pending">Pending</span>
+                    <% } %>
+                </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p class="center">You haven't made any offers yet.</p>
+    <% } %>
+</div>     
+
     <%- include('../partials/footer.ejs')%>

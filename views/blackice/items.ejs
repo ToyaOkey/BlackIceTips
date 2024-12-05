@@ -6,6 +6,7 @@
       <div class="wrapper">
 
           <% services.forEach( service => { %> 
+           <% if(service.active){ %>
             <a href="/items/<%= service.id%>">
               <div class="single-card">
                 <div class="img-area">
@@ -15,10 +16,11 @@
                   <h3><%= service.title%></h3>
                   <p class="price">$<%= service.price%></p>
                   <p class="quality"><%= service.condition%></p>
-                  <p class="offers"><%= service.offers%> Offers</p>
+                  <p class="offers"><%= service.totalOffers%> Offers</p>
                 </div>
               </div>
             </a>
+            <% } %>
           <% }); %> 
         <% } else { %>  
           <main>
