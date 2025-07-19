@@ -36,8 +36,12 @@ app.use(
         resave: false,
         saveUninitialized: false,
         store: new MongoStore({mongoUrl: 'mongodb+srv://tokeynwa:wujcjhQ1Kqm7bEaZ@stories-cluster.i5r4x.mongodb.net/project5?retryWrites=true&w=majority&appName=Stories-Cluster'}),
-        cookie: {maxAge: 60*60*1000}
-        })
+        cookie: {
+            maxAge: 60*60*1000,
+            secure: true,
+            httpOnly: true
+        }
+    })
 );
 app.use(flash());
 
