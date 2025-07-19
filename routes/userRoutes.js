@@ -2,7 +2,15 @@ const express = require('express');
 const controller = require('../controllers/userController.js');
 const {isGuest, isLoggedIn}  = require('../middleware/auth');
 const {body} = require('express-validator');
+const rateLimit = require('express-rate-limit');
 const router = express.Router();
+
+// Rate limiter for login route: max 5 attempts per 15 minutes per IP
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // limit each IP to 5 requests per windowMs
+    message: "Too many login attempts from this IP, please try again after 15 minutes."
+});
 
 //GET /users/new: send html form for creating a new user account
 router.get('/new', isGuest, controller.new);
@@ -21,6 +29,7 @@ controller.create);
 //GET /users/login: send html for logging in
 router.get('/login', isGuest,  controller.getUserLogin);
 
+    loginLimiter,
 //POST /users/login: authenticate user's login
 router.post('/login', 
     [  body('email', 'Email must be valid email address').isEmail().trim().escape().normalizeEmail(), 
