@@ -20,8 +20,10 @@ BlackTips connects players looking to improve their game with experts offering t
 
 ### MongoDB Integration
 
-- MongoDB is used as the backend database to store all **user accounts** and **marketplace listings**
+- **MongoDB Atlas** is used as the cloud database to store all **user accounts** and **marketplace listings**
 - Each item or user entry follows a defined schema for consistency and security
+- Environment variables are used for secure database connection management
+- Session data is stored in MongoDB for persistence across server restarts
 
 ### Multi-layered Validation
 
@@ -45,7 +47,13 @@ BlackTips connects players looking to improve their game with experts offering t
 
 ## Getting Started
 
-To run this project locally, make sure you have **Node.js** installed on your machine.
+To run this project locally, make sure you have **Node.js** and **MongoDB** set up on your machine.
+
+### Prerequisites
+
+- **Node.js** (v14 or higher)
+- **MongoDB Atlas** account (free tier available)
+- **Git**
 
 ### Installation Steps
 
@@ -57,9 +65,59 @@ cd BlackIceTips
 # Install dependencies
 npm install
 
-# Run the application
-nodemon app.js
+# Set up environment variables
+cp .env.example .env
 ```
+
+### Environment Configuration
+
+1. **Create a `.env` file** in the root directory with the following variables:
+
+```env
+MONGO_URI=mongodb+srv://your_username:your_password@your_cluster.mongodb.net/your_database?retryWrites=true&w=majority
+SESSION_SECRET=your_session_secret_here
+PORT=3000
+HOST=localhost
+```
+
+2. **Get your MongoDB connection string:**
+   - Sign up for [MongoDB Atlas](https://www.mongodb.com/atlas)
+   - Create a new cluster (free tier available)
+   - Go to "Database Access" and create a new user
+   - Go to "Network Access" and add your IP address (or `0.0.0.0/0` for all IPs)
+   - Click "Connect" on your cluster and choose "Connect your application"
+   - Copy the connection string and replace `<password>` with your actual password
+
+### Running the Application
+
+```bash
+# Development mode (with auto-restart)
+nodemon app.js
+
+# Production mode
+node app.js
+```
+
+The application will be available at `http://localhost:3000`
+
+### Troubleshooting
+
+#### MongoDB Connection Issues
+
+- **"Bad auth" error**: Check that your MongoDB Atlas credentials are correct
+- **"Network access denied"**: Add your IP address to MongoDB Atlas Network Access
+- **"Database not found"**: Ensure the database name in your connection string exists
+
+#### Environment Variables
+
+- **"process.env.MONGO_URI is undefined"**: Make sure your `.env` file exists and has the correct variable names
+- **"dotenv not loading"**: Ensure `require('dotenv').config()` is at the top of your `app.js` file
+
+#### Port Issues
+
+- **"EADDRINUSE" error**: Port 3000 is already in use. Either:
+  - Kill the existing process: `lsof -ti:3000 | xargs kill -9`
+  - Or change the PORT in your `.env` file
 
 ## 📈 Future Plans
 
