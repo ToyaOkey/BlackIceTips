@@ -29,9 +29,9 @@ controller.create);
 //GET /users/login: send html for logging in
 router.get('/login', isGuest,  controller.getUserLogin);
 
-    loginLimiter,
 //POST /users/login: authenticate user's login
 router.post('/login', 
+    loginLimiter,
     [  body('email', 'Email must be valid email address').isEmail().trim().escape().normalizeEmail(), 
         body('password', 'password must be atleast 8 characters and at most 64 characters').isLength({ min: 8, max: 64 }), 
     ],
