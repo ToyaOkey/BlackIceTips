@@ -10,7 +10,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser');
-
+const lusca = require('lusca');
 
 // app setup 
 let port = process.env.PORT || 3000; 
@@ -49,12 +49,14 @@ app.use(
             httpOnly: true
         }
     })
+app.use(lusca.csrf());
 );
 app.use(flash());
 
 app.use((req, res, next) => {
     //console.log(req.session);
-    res.locals.user = req.session.user||null; 
+    res.locals.user = req.session.user || null;
+    res.locals.csrfToken = req.csrfToken ? req.csrfToken() : null;
     res.locals.errorMessages = req.flash('error');
     res.locals.successMessages = req.flash('success');
     next();
