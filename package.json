@@ -22,8 +22,10 @@
     "body-parser": "^1.20.3",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.1.0",
+    "dotenv": "^17.2.0",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
+    "express-rate-limit": "^8.0.1",
     "express-session": "^1.18.2",
     "express-validator": "^7.2.0",
     "method-override": "^3.0.0",
@@ -31,7 +33,6 @@
     "morgan": "^1.10.1",
     "multer": "^2.0.2",
     "router": "^2.0.0",
-    "uuid": "^10.0.0",
-    "express-rate-limit": "^8.0.1"
+    "uuid": "^10.0.0"
   }
 }

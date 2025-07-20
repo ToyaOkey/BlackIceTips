@@ -1,5 +1,4 @@
-// modules 
-
+require('dotenv').config();
 const express = require('express'); 
 const morgan = require('morgan'); 
 const blackIceRoutes = require('./routes/blackIceRoutes');
@@ -10,32 +9,40 @@ const app = express();
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
 
 // app setup 
+let port = process.env.PORT || 3000; 
+let host = process.env.HOST || 'localhost'; 
+const mongoUri = process.env.MONGO_URI; 
 
-let port = 3000; 
-let host = 'localhost'; 
-const mongoUri = 'mongodb+srv://tokeynwa:wujcjhQ1Kqm7bEaZ@stories-cluster.i5r4x.mongodb.net/project5?retryWrites=true&w=majority&appName=Stories-Cluster'
-app.set('view engine', 'ejs'); 
+// set view engine
+app.set('view engine', 'ejs');
 
 // connect to mongodb
-mongoose.connect(mongoUri)
+mongoose.connect(mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
 .then(() => {
+    console.log('Connected to MongoDB successfully');
     app.listen(port, host, () => {
         console.log(`Black Ice Tips is running on http://${host}:${port}`);
     }); 
 })
-.catch(err =>  console.log(err.message)); 
+.catch(err => {
+    console.error('MongoDB connection error:', err.message);
+    console.error('Full error:', err);
+}); 
 // middleware
 //mount middlware
 app.use(
     session({
-        secret: "ajfeirf90aeu9eroejfoefj",
+        secret: process.env.SESSION_SECRET || "ajfeirf90aeu9eroejfoefj",
         resave: false,
         saveUninitialized: false,
-        store: new MongoStore({mongoUrl: 'mongodb+srv://tokeynwa:wujcjhQ1Kqm7bEaZ@stories-cluster.i5r4x.mongodb.net/project5?retryWrites=true&w=majority&appName=Stories-Cluster'}),
+        store: new MongoStore({mongoUrl: mongoUri}),
         cookie: {
             maxAge: 60*60*1000,
             secure: true,

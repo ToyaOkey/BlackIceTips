@@ -4,7 +4,7 @@
 
 ---
 
-## 🚀 What It Does
+## What It Does
 
 BlackTips connects players looking to improve their game with experts offering tips, guides, and coaching services. Users can:
 
@@ -16,26 +16,26 @@ BlackTips connects players looking to improve their game with experts offering t
 
 ---
 
-## 🔧 Key Features
+## Key Features
 
-### 🗃️ MongoDB Integration
+### MongoDB Integration
 
 - MongoDB is used as the backend database to store all **user accounts** and **marketplace listings**
 - Each item or user entry follows a defined schema for consistency and security
 
-### 🛡️ Multi-layered Validation
+### Multi-layered Validation
 
 - **Schema Validation:** Every item and user follows strict schema rules to prevent malformed data
 - **Front-end Validation:** Input fields are validated on the client side for usability
 - **Server-side Validation:** All incoming data is revalidated to guard against injection or tampering
 
-### 🛍️ Marketplace Listings
+### Marketplace Listings
 
 - Users can post **multiple items**
 - Items are searchable with built-in filters for ease of navigation and discovery
 - Users can place **custom bids** on items they are interested in
 
-### 🔐 Secure Login & Bidding System
+### Secure Login & Bidding System
 
 - Users can **sign up and log in** to manage their listings or bids
 - All passwords are **hashed using bcrypt** before being stored
@@ -43,7 +43,7 @@ BlackTips connects players looking to improve their game with experts offering t
 
 ---
 
-## 🛠️ Getting Started
+## Getting Started
 
 To run this project locally, make sure you have **Node.js** installed on your machine.
 
