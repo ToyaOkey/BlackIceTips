@@ -64,9 +64,13 @@ exports.login = (req, res, next)=>{
     }
 
     let email = req.body.email;
+    if (typeof email !== "string") {
+        req.flash('error', 'Invalid email format.');
+        return res.redirect('/users/login');
+    }
     let password = req.body.password;
     
-    model.findOne({ email: email })
+    model.findOne({ email: { $eq: email } })
     .then(user => {
         if (!user) {
             // console.log('wrong email address');
